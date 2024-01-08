@@ -61,12 +61,11 @@ class Game_2048():
 
             return colored_output
 
-        board_sub = board
 
         output = "|-----|-----|-----|-----|\n"
         for i in range(4):
             for j in range(4):
-                cell_value = str(board_sub[i][j])
+                cell_value = str(board[i][j])
                 padding = " " * (5 - len(cell_value))
                 
                 left_padding = " " * math.floor(len(padding) / 2)
@@ -174,6 +173,18 @@ class Game_2048():
         self.display_board(self.board)
         return
 
+    def endgame_check(self) -> bool:
+    
+        for i in range(4):
+            for j in range(4):
+                if i-1 >= 0 and self.board[i][j] == self.board[i - 1][j]:    
+                    return False
+                if j - 1 >= 0 and self.board[i][j] == self.board[i][j - 1]:
+                    return False
+                            
+        return True
+
+    
     def gameplay(self):
         
         self.number_spawn()
@@ -185,12 +196,12 @@ class Game_2048():
             if self.move_made_flag == True:
                 self.number_spawn()
 
-            if not 0 in self.board:
-                self.end_game_flag == True
+            if all(0 not in row for row in self.board):
+                self.end_game_flag = self.endgame_check()
 
             time.sleep(0.1)
         
-        print(f"Your Score is {max(self.board)}")
+        print(f"Your score is {max(max(row) for row in self.board)}!")
         print("Thank you for playing!")
 
 if __name__ == "__main__":
