@@ -3,6 +3,7 @@ import os
 import keyboard
 import time
 import re
+import math
 
 class Game_2048():
 
@@ -62,14 +63,19 @@ class Game_2048():
 
         board_sub = board
 
-        output = "|---|---|---|---|\n"
+        output = "|-----|-----|-----|-----|\n"
         for i in range(4):
             for j in range(4):
+                cell_value = str(board_sub[i][j])
+                padding = " " * (5 - len(cell_value))
+                
+                left_padding = " " * math.floor(len(padding) / 2)
+                right_padding = " " * math.ceil(len(padding) / 2)
+            
+                output += f"|{left_padding}{cell_value}{right_padding}"
+                
                 if j == 3:
-                    output += f"| {board_sub[i][j]} | "
-                else:
-                    output += f"| {board_sub[i][j]} "
-            output += "\n|---|---|---|---|\n"
+                    output += "|\n|-----|-----|-----|-----|\n"
 
         colored_output = colorize_output(output)
         print(colored_output)
@@ -182,7 +188,7 @@ class Game_2048():
             if not 0 in self.board:
                 self.end_game_flag == True
 
-            time.sleep(1)
+            time.sleep(0.1)
         
         print(f"Your Score is {max(self.board)}")
         print("Thank you for playing!")
