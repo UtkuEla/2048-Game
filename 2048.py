@@ -1,3 +1,6 @@
+# 2048 game in Python with OOP logic
+# Utku Elagoz 2024
+
 import random
 import os
 import keyboard
