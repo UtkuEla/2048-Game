@@ -186,8 +186,7 @@ class Game_2048():
                     return False
                             
         return True
-
-    
+   
     def gameplay(self):
         
         self.number_spawn()
